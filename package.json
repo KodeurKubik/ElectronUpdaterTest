@@ -1,0 +1,20 @@
+{
+  "name": "electronupdatertest",
+  "version": "1.0.0",
+  "description": "Some testing for electron updater",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KodeurKubik/ElectronUpdaterTest.git"
+  },
+  "author": "KodeurKubik",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KodeurKubik/ElectronUpdaterTest/issues"
+  },
+  "homepage": "https://github.com/KodeurKubik/ElectronUpdaterTest#readme",
+  "dependencies": {
+    "electron": "^28.0.0",
+    "update-electron-app": "^3.0.0"
+  }
+}
