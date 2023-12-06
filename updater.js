@@ -1,13 +1,18 @@
-const { updateElectronApp, UpdateSourceType } = require("update-electron-app");
 
-module.exports = () => {
-    updateElectronApp({
-        updateSource: {
-            type: UpdateSourceType.ElectronPublicUpdateService,
-            repo: 'KodeurKubik/ElectronUpdaterTest'
-        },
-        notifyUser: true,
-        updateInterval: '5 minutes',
-        logger: console,
-    });
-}
+
+
+
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+    const dialogOpts = {
+        type: 'info',
+        buttons: ['Restart', 'Later'],
+        title: 'Application Update',
+        message: process.platform === 'win32' ? releaseNotes : releaseName,
+        detail:
+            'A new version has been downloaded. Restart the application to apply the updates.'
+    }
+
+    dialog.showMessageBox(dialogOpts).then((returnValue) => {
+        if (returnValue.response === 0) autoUpdater.quitAndInstall()
+    })
+})

@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KodeurKubik/ElectronUpdaterTest.git"
+    "url": "https://github.com/KodeurKubik/ElectronUpdaterTest.git"
   },
   "author": "KodeurKubik",
   "license": "MIT",
@@ -14,7 +14,16 @@
   },
   "homepage": "https://github.com/KodeurKubik/ElectronUpdaterTest#readme",
   "dependencies": {
-    "electron": "^28.0.0",
-    "update-electron-app": "^3.0.0"
+    "electron": "^28.0.0"
+  },
+  "publishers": {
+    "provider": "github",
+    "repo": "ElectronUpdaterTest",
+    "owner": "KodeurKubik",
+    "vPrefixedTagName": true
+  },
+  "scripts": {
+    "build": "electron-builder build --mac --win --publish never",
+    "deploy": "electron-builder build --mac --win --publish always"
   }
 }
