@@ -9,6 +9,22 @@ const log = {
     info: (data) => logger.write('\n' + JSON.stringify(data)),
     warn: (data) => logger.write('\n' + JSON.stringify(data)),
     error: (data) => logger.write('\n' + JSON.stringify(data))
+};
+
+function v1Bigger(v1, v2) {
+    let v1parts = v1.split('.').map(Number),
+        v2parts = v2.split('.').map(Number);
+
+    for (let i = 0; i < v1parts.length; i++) {
+        if (v2parts.length == i) return true;
+
+        if (v1parts[i] == v2parts[i]) continue
+        else if (v1parts[i] > v2parts[i]) return true
+        else return false
+    }
+
+    if (v1parts.length != v2parts.length) return false;
+    return false;
 }
 
 
@@ -42,7 +58,8 @@ module.exports = () => {
             win.once('ready-to-show', async () => {
                 win.webContents.send('statusUpdate', `Checking for updates...`);
                 let update = await autoUpdater.checkForUpdates();
-                if (update) {
+                
+                if (update && v1Bigger(update.updateInfo.version, require('./package.json').version)) {
                     win.webContents.send('progressUpdate', 0);
                     win.webContents.send('statusUpdate', `Update found! v${update.updateInfo.version}`);
                 }
