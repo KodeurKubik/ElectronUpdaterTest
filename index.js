@@ -1,7 +1,9 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const { autoUpdater } = require('electron-updater');
+const log = require('electron-log');
 
-autoUpdater.logger = console;
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
 console.log('App starting...');
 
 autoUpdater.autoDownload = true;
