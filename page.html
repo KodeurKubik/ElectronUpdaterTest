@@ -16,15 +16,20 @@
 
 <body>
     <h1>Electron Auto Update Example</h1>
-    <p id="version"></p>
+    Current version: <span id="version">vX.Y.Z</span>
+    <div id="messages"></div>
     <script>
-        const { ipcRenderer } = require('electron');
-        const version = document.getElementById('version');
+        // Display the current version
+        let version = window.location.hash.substring(1);
+        document.getElementById('version').innerText = version;
 
-        ipcRenderer.send('app_version');
-        ipcRenderer.on('app_version', (event, arg) => {
-            ipcRenderer.removeAllListeners('app_version');
-            version.innerText = 'Version ' + arg.version;
-        });
+        // Listen for messages
+        const { ipcRenderer } = window.require('electron');
+        ipcRenderer.on('message', function (event, text) {
+            var container = document.getElementById('messages');
+            var message = document.createElement('div');
+            message.innerHTML = text;
+            container.appendChild(message);
+        })
     </script>
 </body>

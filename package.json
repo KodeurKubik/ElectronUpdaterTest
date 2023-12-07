@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KodeurKubik/ElectronUpdaterTest.git"
+    "url": "https://github.com/KodeurKubik/ElectronUpdaterTest"
   },
   "author": "KodeurKubik",
   "license": "MIT",
@@ -27,13 +27,13 @@
     "publish-mac": "electron-builder build --mac --arm64 --x64 --publish always",
     "publish-win": "electron-builder build --win --arm64 --x64 --publish always",
     "publish-lin": "electron-builder build --linux --arm64 --x64 --publish always",
-
     "build-mac": "electron-builder build --mac --arm64 --x64 --publish never",
     "build-win": "electron-builder build --win --arm64 --x64 --publish never",
     "build-lin": "electron-builder build --linux --arm64 --x64 --publish never",
-
-
     "build": "npm run build-mac && npm run build-win",
     "deploy": "npm run publish-mac && npm run publish-win"
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.7"
   }
 }
