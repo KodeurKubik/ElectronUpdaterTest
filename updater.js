@@ -57,15 +57,18 @@ module.exports = () => {
 
 
             autoUpdater.on('error', (err) => {
+                win.setProgressBar(1, { mode: 'error' });
                 win.webContents.send('statusUpdate', `Something went wrong...`);
                 dialog.showErrorBox('An error occured...', `This shouldn't happend. Check your internet connection, restart the app and try again.\n\nFULL ERROR: ${err}`)
             });
 
             autoUpdater.on('download-progress', (progressObj) => {
+                win.setProgressBar(progressObj.transferred / progressObj.total);
                 win.webContents.send('progressUpdate', progressObj.percent);
             });
 
             autoUpdater.on('update-downloaded', () => {
+                win.setProgressBar(5, { mode: 'indeterminate' });
                 win.webContents.send('statusUpdate', `Installing update...`);
 
                 autoUpdater.quitAndInstall();
