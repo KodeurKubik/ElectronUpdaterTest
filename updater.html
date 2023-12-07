@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <!-- <link rel="stylesheet" href="globals.css" /> -->
+    <!-- <link rel="stylesheet" href="styleguide.css" /> -->
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+
+    <style>
+        :root {
+            --variable-collection-foreground: rgba(61, 61, 61, 1);
+            --variable-collection-base: rgba(37, 37, 37, 1);
+            --variable-collection-highlight: rgba(214, 169, 100, 1);
+        }
+
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .updater {
+            background-color: #252525;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .updater .div {
+            background-color: var(--variable-collection-base);
+            width: 500px;
+            height: 500px;
+            position: relative;
+        }
+
+        .updater .overlap-group {
+            position: absolute;
+            width: 366px;
+            height: 395px;
+            top: 0;
+            left: 67px;
+        }
+
+        .updater .logo {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            top: 0;
+            left: 8px;
+            object-fit: cover;
+        }
+
+        .updater .text {
+            position: absolute;
+            text-align: center;
+            top: 349px;
+            width: 100%;
+            font-family: "Istok Web-Bold", Helvetica;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 25px;
+            letter-spacing: 0;
+            line-height: normal;
+        }
+
+        .updater .progress {
+            position: absolute;
+            width: 450px;
+            height: 50px;
+            top: 411px;
+            left: 25px;
+            background-color: var(--variable-collection-foreground);
+            border-radius: 15px;
+        }
+
+        #progressBar {
+            width: 100%;
+            height: 100%;
+            background-color: var(--variable-collection-highlight);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="updater">
+        <div class="div">
+            <div class="overlap-group">
+                <img class="logo" src="./load.gif" />
+                <div class="text" id="status">Loading the app...</div>
+            </div>
+            <div class="progress">
+                <div id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setProgress(percent) {
+            document.getElementById('progressBar').style.width = percent + "%";
+        };
+
+        const { ipcRenderer } = window.require('electron');
+
+        ipcRenderer.on('statusUpdate', (_event, text) => {
+            document.getElementById('status').innerText = text;
+        });
+
+        ipcRenderer.on('progressUpdate', (_event, newPercentage) => {
+            setProgress(newPercentage);
+        })
+    </script>
+</body>
+
+</html>
